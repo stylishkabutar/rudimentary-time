@@ -6,7 +6,7 @@ from config import (
     GravityAcc,
 )
 
-EPSILON = 10**-8
+
 
 # Constants
 _frictional_tou = R_Out * Mass * GravityAcc * ZeroSpeedCrr
@@ -54,5 +54,5 @@ def calculate_power(speed, acceleration, slope,ws,wd):
     return P_net.clip(0), P_out
 
 def calculate_dt(start_speed, stop_speed, dx):
-    dt = 2 * dx / (start_speed + stop_speed + EPSILON)
+    dt = 2 * dx / (start_speed + stop_speed)
     return dt

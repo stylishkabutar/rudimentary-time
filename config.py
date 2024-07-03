@@ -1,3 +1,5 @@
+import pandas as pd
+import numpy as np
 
 # ---------------------------------------------------------------------------------------------------------
 # Car Data
@@ -38,3 +40,26 @@ Ta = 295
 MaxVelocity = 35 # m/s
 MaxCurrent = 12.3  # Am
 MaxAcc=0.1
+
+# ---------------------------------------------------------------------------------------------------------
+# Race config settings
+
+# Model Settings
+ModelMethod = "COBYLA"
+InitialGuessVelocity = 25
+seg_length= 5000 
+
+# Race settings
+RaceStartTime = 8 * 3600 
+wind_speed=3
+Wind_dir=180
+slope=0
+Race_distance=800 * 10 ** 3
+dist_array=np.array(list(range(0,Race_distance,seg_length)))
+seg_array=dist_array[1:]-dist_array[:-1]
+ 
+#Baterry Settings
+InitialBatteryCapacity = BatteryCapacity
+FinalBatteryCapacity = 0
+
+

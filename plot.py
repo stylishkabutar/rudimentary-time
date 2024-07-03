@@ -25,7 +25,7 @@ external_stylesheets = [
 def create_app(distances, velocity_profile, acceleration_profile, battery_profile, energy_consumption_profile, solar_profile, time):
     app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
     
-    avg_vel = distances[-1] / (time[-1] - 4.5 * 3600)
+    avg_vel = distances[-1] / (time[-1])
     
     app.layout = html.Div([
          html.Div([
@@ -72,15 +72,6 @@ def create_app(distances, velocity_profile, acceleration_profile, battery_profil
                         go.Scatter(x=distances, y=velocity_profile, mode='lines+markers', name='Velocity'),
                         go.Scatter(x=[min(distances), max(distances)], y=[config.MaxVelocity, config.MaxVelocity], mode='lines', name="Max Velocity", line=dict(color='red', dash='dot')),
                         go.Scatter(x=[min(distances), max(distances)], y=[avg_vel, avg_vel], mode='lines', name="avg", line=dict(color='green', dash='dot')),
-                        go.Scatter(x=[322000, 322000], y=[0, config.MaxVelocity], mode='lines', name="ControlStop1", line=dict(color='blue', dash='dot')),
-                        go.Scatter(x=[588000, 588000], y=[0, config.MaxVelocity], mode='lines', name="ControlStop2", line=dict(color='blue', dash='dot')),
-                        go.Scatter(x=[987000, 987000], y=[0, config.MaxVelocity], mode='lines', name="ControlStop3", line=dict(color='blue', dash='dot')),
-                        go.Scatter(x=[1210000, 1210000], y=[0, config.MaxVelocity], mode='lines', name="ControlStop4", line=dict(color='blue', dash='dot')),
-                        go.Scatter(x=[1493000, 1493000], y=[0, config.MaxVelocity], mode='lines', name="ControlStop5", line=dict(color='blue', dash='dot')),
-                        go.Scatter(x=[1766000, 1766000], y=[0, config.MaxVelocity], mode='lines', name="ControlStop6", line=dict(color='blue', dash='dot')),
-                        go.Scatter(x=[2178000, 2178000], y=[0, config.MaxVelocity], mode='lines', name="ControlStop7", line=dict(color='blue', dash='dot')),
-                        go.Scatter(x=[2432000, 2432000], y=[0, config.MaxVelocity], mode='lines', name="ControlStop8", line=dict(color='blue', dash='dot')),
-                        go.Scatter(x=[2720000, 2720000], y=[0, config.MaxVelocity], mode='lines', name="ControlStop9", line=dict(color='blue', dash='dot')),
                         go.Scatter(x=[max(distances), max(distances)], y=[0, config.MaxVelocity], mode='lines', name="End", line=dict(color='blue', dash='dot')),
                     ],
                     'layout': go.Layout(title='Velocity Profile', xaxis={'title': 'Distance'}, yaxis={'title': 'Velocity'})
@@ -95,15 +86,6 @@ def create_app(distances, velocity_profile, acceleration_profile, battery_profil
                         go.Scatter(x=[min(distances), max(distances)], y=[config.MaxVelocity * 18 / 5, config.MaxVelocity * 18 / 5], mode='lines', name="Max Velocity", line=dict(color='red', dash='dot')),
                         go.Scatter(x=[min(distances), max(distances)], y=[75, 75], mode='lines', name="75kmph", line=dict(color='red', dash='dot')),
                         go.Scatter(x=[min(distances), max(distances)], y=[avg_vel * 18 / 5, avg_vel * 18 / 5], mode='lines', name="avg", line=dict(color='green', dash='dot')),
-                        go.Scatter(x=[322000, 322000], y=[0, config.MaxVelocity * 18 / 5], mode='lines', name="ControlStop1", line=dict(color='blue', dash='dot')),
-                        go.Scatter(x=[588000, 588000], y=[0, config.MaxVelocity * 18 / 5], mode='lines', name="ControlStop2", line=dict(color='blue', dash='dot')),
-                        go.Scatter(x=[987000, 987000], y=[0, config.MaxVelocity * 18 / 5], mode='lines', name="ControlStop3", line=dict(color='blue', dash='dot')),
-                        go.Scatter(x=[1210000, 1210000], y=[0, config.MaxVelocity * 18 / 5], mode='lines', name="ControlStop4", line=dict(color='blue', dash='dot')),
-                        go.Scatter(x=[1493000, 1493000], y=[0, config.MaxVelocity * 18 / 5], mode='lines', name="ControlStop5", line=dict(color='blue', dash='dot')),
-                        go.Scatter(x=[1766000, 1766000], y=[0, config.MaxVelocity * 18 / 5], mode='lines', name="ControlStop6", line=dict(color='blue', dash='dot')),
-                        go.Scatter(x=[2178000, 2178000], y=[0, config.MaxVelocity * 18 / 5], mode='lines', name="ControlStop7", line=dict(color='blue', dash='dot')),
-                        go.Scatter(x=[2432000, 2432000], y=[0, config.MaxVelocity * 18 / 5], mode='lines', name="ControlStop8", line=dict(color='blue', dash='dot')),
-                        go.Scatter(x=[2720000, 2720000], y=[0, config.MaxVelocity * 18 / 5], mode='lines', name="ControlStop9", line=dict(color='blue', dash='dot')),
                         go.Scatter(x=[max(distances), max(distances)], y=[0, config.MaxVelocity * 18 / 5], mode='lines', name="End", line=dict(color='blue', dash='dot')),
                     ],
                     'layout': go.Layout(title='Velocity Profile', xaxis={'title': 'Distance'}, yaxis={'title': 'Velocity'})
@@ -145,15 +127,6 @@ def create_app(distances, velocity_profile, acceleration_profile, battery_profil
                         go.Scatter(x=distances, y=battery_profile, mode='lines+markers', name='Battery'),
                         go.Scatter(x=[min(distances), max(distances)], y=[100, 100], mode='lines', name="Max Battery Level", line=dict(color='red', dash='dot')),
                         go.Scatter(x=[min(distances), max(distances)], y=[config.DeepDischargeCap * 100, config.DeepDischargeCap * 100], mode='lines', name="Minimum battery Level", line=dict(color='orange', dash='dot')),
-                        go.Scatter(x=[322000, 322000], y=[0, 100], mode='lines', name="ControlStop1", line=dict(color='blue', dash='dot')),
-                        go.Scatter(x=[588000, 588000], y=[0, 100], mode='lines', name="ControlStop2", line=dict(color='blue', dash='dot')),
-                        go.Scatter(x=[987000, 987000], y=[0, 100], mode='lines', name="ControlStop3", line=dict(color='blue', dash='dot')),
-                        go.Scatter(x=[1210000, 1210000], y=[0, 100], mode='lines', name="ControlStop4", line=dict(color='blue', dash='dot')),
-                        go.Scatter(x=[1493000, 1493000], y=[0, 100], mode='lines', name="ControlStop5", line=dict(color='blue', dash='dot')),
-                        go.Scatter(x=[1766000, 1766000], y=[0, 100], mode='lines', name="ControlStop6", line=dict(color='blue', dash='dot')),
-                        go.Scatter(x=[2178000, 2178000], y=[0, 100], mode='lines', name="ControlStop7", line=dict(color='blue', dash='dot')),
-                        go.Scatter(x=[2432000, 2432000], y=[0, 100], mode='lines', name="ControlStop8", line=dict(color='blue', dash='dot')),
-                        go.Scatter(x=[2720000, 2720000], y=[0, 100], mode='lines', name="ControlStop9", line=dict(color='blue', dash='dot')),
                     ],
                     'layout': go.Layout(title='Battery Profile', xaxis={'title': 'Distance'}, yaxis={'title': 'Battery Level'})
                 },
@@ -196,15 +169,6 @@ def create_app(distances, velocity_profile, acceleration_profile, battery_profil
                 figure={
                     'data': [
                         go.Scatter(x=distances, y=time / 3600, mode='lines+markers', name='Time'),
-                        go.Scatter(x=[322000, 322000], y=[0, 100], mode='lines', name="ControlStop", line=dict(color='blue', dash='dot')),
-                        go.Scatter(x=[588000, 588000], y=[0, 100], mode='lines', name="ControlStop", line=dict(color='blue', dash='dot')),
-                        go.Scatter(x=[987000, 987000], y=[0, 100], mode='lines', name="ControlStop", line=dict(color='blue', dash='dot')),
-                        go.Scatter(x=[1210000, 1210000], y=[0, 100], mode='lines', name="ControlStop", line=dict(color='blue', dash='dot')),
-                        go.Scatter(x=[1493000, 1493000], y=[0, 100], mode='lines', name="ControlStop", line=dict(color='blue', dash='dot')),
-                        go.Scatter(x=[1766000, 1766000], y=[0, 100], mode='lines', name="ControlStop", line=dict(color='blue', dash='dot')),
-                        go.Scatter(x=[2178000, 2178000], y=[0, 100], mode='lines', name="ControlStop", line=dict(color='blue', dash='dot')),
-                        go.Scatter(x=[2432000, 2432000], y=[0, 100], mode='lines', name="ControlStop", line=dict(color='blue', dash='dot')),
-                        go.Scatter(x=[2720000, 2720000], y=[0, 100], mode='lines', name="ControlStop", line=dict(color='blue', dash='dot')),
                     ],
                     'layout': go.Layout(title='Time Distance Correlation', xaxis={'title': 'Distance'}, yaxis={'title': 'Net Time'})
                 },
